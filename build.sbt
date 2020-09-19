@@ -7,9 +7,9 @@ inThisBuild(
     developers := List(
       Developer(
         id = "exoego",
-          name = "TATSUNO Yasuhiro",
-          email = "ytatsuno.jp@gmail.com",
-          url = url("https://www.exoego.net")
+        name = "TATSUNO Yasuhiro",
+        email = "ytatsuno.jp@gmail.com",
+        url = url("https://www.exoego.net")
       )
     ),
     addCompilerPlugin(scalafixSemanticdb),
@@ -17,9 +17,8 @@ inThisBuild(
       "-Yrangepos",
       "-P:semanticdb:synthetics:on"
     ),
-      skip in publish := true,
-
-)
+    skip in publish := true
+  )
 )
 
 lazy val rules = project.settings(
@@ -39,14 +38,14 @@ lazy val tests = project
   .settings(
     skip in publish := true,
     libraryDependencies += "ch.epfl.scala" % "scalafix-testkit" % V.scalafixVersion % Test cross CrossVersion.full,
-    compile.in(Compile) := 
+    compile.in(Compile) :=
       compile.in(Compile).dependsOn(compile.in(input, Compile)).value,
     scalafixTestkitOutputSourceDirectories :=
       sourceDirectories.in(output, Compile).value,
     scalafixTestkitInputSourceDirectories :=
       sourceDirectories.in(input, Compile).value,
     scalafixTestkitInputClasspath :=
-      fullClasspath.in(input, Compile).value,
+      fullClasspath.in(input, Compile).value
   )
   .dependsOn(rules)
   .enablePlugins(ScalafixTestkitPlugin)
