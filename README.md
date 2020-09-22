@@ -1,4 +1,4 @@
-# Scalafix rules for Scalafix Performance Rule
+# Scalafix rules for runtime performance
 
 To develop rule:
 ```
