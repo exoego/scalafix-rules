@@ -21,10 +21,11 @@ object UseSizeIs {
   Seq(1, 2, 3).length <= 10
   Seq(1, 2, 3).length < 10
 
-  immutable.Seq(1, 2, 3).size > 5
-  mutable.Seq(1, 2, 3).size > 5
-  Iterable.single(1).size > 5
-  Map.empty.size > 5
+  val x = 5
+  immutable.Seq(1, 2, 3).size > x
+  mutable.Seq(1, 2, 3).size > x
+  Iterable.single(1).size > x
+  Map.empty.size > (1 + 4)
 
   // Preserve
   // not size or length
