@@ -1,4 +1,4 @@
-# Scalafix rules
+# Scalafix rules for scalafix-my-rules
 
 To develop rule:
 ```
