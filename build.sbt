@@ -1,15 +1,16 @@
 lazy val V = _root_.scalafix.sbt.BuildInfo
 
 lazy val rulesCrossVersions = Seq(V.scala213) // , V.scala212, V.scala211)
-lazy val scala3Version = "3.0.0"
+lazy val scala3Version      = "3.3.0"
 
 inThisBuild(
   List(
     organization := "net.exoego",
-    homepage := Some(url("https://github.com/exoego/scalafix-rules")),
+    homepage     := Some(url("https://github.com/exoego/scalafix-rules")),
     licenses := List(
       "Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0")
     ),
+    scalacOptions += "-deprecation",
     developers := List(
       Developer(
         id = "exoego",
@@ -36,7 +37,7 @@ lazy val `scalafix-rules` = (project in file("."))
 
 lazy val rules = projectMatrix
   .settings(
-    moduleName := "scalafix",
+    moduleName                             := "scalafix",
     libraryDependencies += "ch.epfl.scala" %% "scalafix-core" % V.scalafixVersion
   )
   .defaultAxes(VirtualAxis.jvm)
@@ -61,7 +62,7 @@ lazy val testsAggregate = Project("tests", file("target/testsAggregate"))
 
 lazy val tests = projectMatrix
   .settings(
-    publish / skip := true,
+    publish / skip                        := true,
     libraryDependencies += "ch.epfl.scala" % "scalafix-testkit" % V.scalafixVersion % Test cross CrossVersion.full,
     scalafixTestkitOutputSourceDirectories :=
       TargetAxis
