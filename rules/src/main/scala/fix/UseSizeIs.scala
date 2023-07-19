@@ -12,9 +12,9 @@ class UseSizeIs extends SemanticRule("UseSizeIs") {
 
   override def fix(implicit doc: SemanticDocument): Patch = {
     doc.tree.collect {
-      case s @ Term.ApplyInfix(Term.Select(receiver, method), Term.Name(operator), _, _)
+      case s @ Term.ApplyInfix.After_4_6_0(Term.Select(receiver, method), Term.Name(operator), _, _)
           if isComparing(operator) && isTargetMethod(method) && notScalaIterator(receiver) =>
-        Patch.replaceTree(method.asInstanceOf[Tree], "sizeIs")
+        Patch.replaceTree(method, "sizeIs")
     }.asPatch
   }
 
@@ -28,8 +28,7 @@ class UseSizeIs extends SemanticRule("UseSizeIs") {
     // Iterator does not support sizeIs
     !receiver.symbol.info.exists(s => {
       val sig = s.signature.toString()
-      // Empty on Scala 3
-      sig.isEmpty || sig.contains(": Iterator[")
+      sig.contains("Iterator[")
     })
   }
 
